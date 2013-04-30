@@ -408,25 +408,11 @@ def category_products(request, slug, start=1, template_name="lfs/catalog/categor
             product_image = product.get_image()
             if product_image:
                 image = product_image.image
-            # we can't store image object to the cache, because it is not retrieved correctly.
-            # See https://github.com/diefenbach/lfs-theme/issues/13#issuecomment-17170856
-            # we will store image urls representing all image sizes eg:
-            # image_info = dict(
-            #     'url_100x100': '/media/images/some_image.100x100.jpg',
-            #     'url_200x200': '/media/images/some_image.200x200.jpg'
-            # )
-            # In the template we can still call product.image.url_100x100 etc.
-            image_info = dict()
-            for size in settings.LFS_THUMBNAIL_SIZES:
-                key = 'url_%dx%d' % size
-                url = getattr(image, key, None)
-                if url is not None:
-                    image_info[key] = url
             row.append({
                 "obj": product,
                 "slug": product.slug,
                 "name": product.get_name(),
-                "image": image_info,
+                "image": image,
                 "price_unit": product.price_unit,
                 "price_includes_tax": product.price_includes_tax(request),
             })
