@@ -15,6 +15,13 @@ var update_checkout = function() {
             $("#payment-inline").html(data["payment"]);
         }
     });
+};
+
+function safeParseJSON(data) {
+    if (typeof(data) == 'string') {
+        data = $.parseJSON(data);
+    }
+    return data;
 }
 
 $(function() {
@@ -84,7 +91,7 @@ $(function() {
             this.blur();
             this.focus();
         });
-    };
+    }
 
     $("input.variant").live("change", function() {
         var url = $(this).parents("table.product-variants").attr("data");
@@ -93,7 +100,7 @@ $(function() {
             url : url,
             data : {"variant_id" : variant_id},
             success : function(data) {
-                var data = $.parseJSON(data);
+                var data = safeParseJSON(data);
                 $("#product-inline").html(data["product"]);
                 $.jGrowl(data["message"]);
 
