@@ -449,7 +449,7 @@ def check_voucher(request):
         "html": (("#cart-inline", cart_inline(request)),)
     })
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 def changed_checkout(request):
@@ -466,7 +466,7 @@ def changed_checkout(request):
         "cart": cart_inline(request),
     })
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 def changed_invoice_country(request):
@@ -476,7 +476,7 @@ def changed_invoice_country(request):
     result = simplejson.dumps({
         "invoice_address": address_inline(request, INVOICE_PREFIX, form),
     })
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 def changed_shipping_country(request):
@@ -487,7 +487,7 @@ def changed_shipping_country(request):
         "shipping_address": address_inline(request, SHIPPING_PREFIX, form),
     })
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 def _save_country(request, customer):

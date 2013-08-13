@@ -4,25 +4,25 @@ function popup(url, w, h) {
     w.focus();
 }
 
-// Update checkout
-var update_checkout = function() {
-    var data = $(".checkout-form").ajaxSubmit({
-        url : $(".checkout-form").attr("data"),
-        "success" : function(data) {
-            var data = $.parseJSON(data);
-            $("#cart-inline").html(data["cart"]);
-            $("#shipping-inline").html(data["shipping"]);
-            $("#payment-inline").html(data["payment"]);
-        }
-    });
-};
-
 function safeParseJSON(data) {
     if (typeof(data) == 'string') {
         data = $.parseJSON(data);
     }
     return data;
 }
+
+// Update checkout
+var update_checkout = function() {
+    var data = $(".checkout-form").ajaxSubmit({
+        url : $(".checkout-form").attr("data"),
+        "success" : function(data) {
+            var data = safeParseJSON(data);
+            $("#cart-inline").html(data["cart"]);
+            $("#shipping-inline").html(data["shipping"]);
+            $("#payment-inline").html(data["payment"]);
+        }
+    });
+};
 
 $(function() {
     // Delay plugin taken from ###############################################
@@ -117,7 +117,7 @@ $(function() {
         $("#product-form").ajaxSubmit({
             url : $("#product-form").attr("data"),
             success : function(data) {
-                var data = $.parseJSON(data);
+                var data = safeParseJSON(data);
                 $("#product-inline").html(data["product"]);
                 $.jGrowl(data["message"]);
 
@@ -138,7 +138,7 @@ $(function() {
             $("#product-form").ajaxSubmit({
                 url : url,
                 success : function(data) {
-                    var data = $.parseJSON(data);
+                    var data = safeParseJSON(data);
                     $(".packing-result").html(data["html"]);
                 }
             });
@@ -149,7 +149,7 @@ $(function() {
         $("#product-form").ajaxSubmit({
             url : $("#cp-url").attr("data"),
             success : function(data) {
-                var data = $.parseJSON(data);
+                var data = safeParseJSON(data);
                 $(".standard-price-value").html(data["price"]);
                 $(".for-sale-price-value").html(data["for-sale-price"]);
                 $(".for-sale-standard-price-value").html(data["for-sale-standard-price"]);
@@ -187,7 +187,7 @@ $(function() {
         $("#cart-form").ajaxSubmit({
             "type" : "post",
             "success" : function(data) {
-                var data = $.parseJSON(data);
+                var data = safeParseJSON(data);
                 $("#cart-inline").html(data["html"]);
                 if (data["message"])
                     $.jGrowl(data["message"]);
@@ -199,7 +199,7 @@ $(function() {
         $("#cart-form").ajaxSubmit({
             "type" : "post",
             "success" : function(data) {
-                var data = $.parseJSON(data);
+                var data = safeParseJSON(data);
                 $("#cart-inline").html(data["html"]);
             }
         })
@@ -209,7 +209,7 @@ $(function() {
         $("#cart-form").ajaxSubmit({
             "type" : "post",
             "success" : function(data) {
-                var data = $.parseJSON(data);
+                var data = safeParseJSON(data);
                 $("#cart-inline").html(data["html"]);
             }
         })
@@ -219,7 +219,7 @@ $(function() {
         $("#cart-form").ajaxSubmit({
             "type" : "post",
             "success" : function(data) {
-                var data = $.parseJSON(data);
+                var data = safeParseJSON(data);
                 $("#cart-inline").html(data["html"]);
             }
         })
@@ -243,7 +243,7 @@ $(function() {
                 var q = $("#search-input").attr("value");
                 var url = $("#search-input").data("url");
                 $.get(url, {"q" : q}, function(data) {
-                    data = $.parseJSON(data);
+                    data = safeParseJSON(data);
                     if (data["state"] == "success") {
                         $("#livesearch-result").html(data["products"]);
                         $("#livesearch-result").slideDown("fast");
@@ -277,7 +277,7 @@ $(function() {
         var data = $(".checkout-form").ajaxSubmit({
             url : $(".checkout-form").attr("data"),
             "success" : function(data) {
-                var data = $.parseJSON(data);
+                var data = safeParseJSON(data);
                 $("#cart-inline").html(data["cart"]);
                 $("#shipping-inline").html(data["shipping"]);
             }
@@ -317,7 +317,7 @@ $(function() {
         var data = $(".postal-address").ajaxSubmit({
             url : $(".postal-address").attr("invoice"),
             "success" : function(data) {
-                var data = $.parseJSON(data);
+                var data = safeParseJSON(data);
                 $("#invoice-address-inline").html(data["invoice_address"]);
             }
         });
@@ -335,7 +335,7 @@ $(function() {
         var data = $(".postal-address").ajaxSubmit({
             url : $(".postal-address").attr("shipping"),
             "success" : function(data) {
-                var data = $.parseJSON(data);
+                var data = safeParseJSON(data);
                 $("#shipping-address-inline").html(data["shipping_address"]);
             }
         });
@@ -373,7 +373,7 @@ $(function() {
 
 
     var update_html = function(data) {
-        data = $.parseJSON(data);
+        data = safeParseJSON(data);
         for (var html in data["html"])
             $(data["html"][html][0]).html(data["html"][html][1]);
 
