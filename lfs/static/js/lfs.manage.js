@@ -1,3 +1,10 @@
+function safeParseJSON(data) {
+    if (typeof(data) == 'string') {
+        data = $.parseJSON(data);
+    }
+    return data;
+}
+
 function popup(url, w, h) {
     w = window.open(url, "Preview", "height=" + h +", width=" + w +", screenX=500, screenY=150, scrollbars=yes, resizable=yes");
     w.focus();
@@ -50,7 +57,7 @@ function setup_datepicker(){
 function send_form_and_refresh(mythis) {
     mythis.parents("form:first").ajaxSubmit({
         success : function(data) {
-            data = $.parseJSON(data);
+            data = safeParseJSON(data);
             for (var html in data["html"]) {
                 $(data["html"][html][0]).html(data["html"][html][1]);
             }
@@ -79,7 +86,7 @@ function sortable() {
                 type: "POST",
                 data: {"objs": serialized},
                 success: function(data) {
-                    data = $.parseJSON(data);
+                    data = safeParseJSON(data);
                     $.jGrowl(data["message"])
                 }
            });
@@ -165,7 +172,7 @@ $(function() {
         form.ajaxSubmit({
             data : {"action" : action},
             success : function(data) {
-                data = $.parseJSON(data);
+                data = safeParseJSON(data);
                 for (var html in data["html"]) {
                     $(data["html"][html][0]).html(data["html"][html][1]);
                 }
@@ -193,7 +200,7 @@ $(function() {
     $(".ajax-link").live("click", function() {
         var url = $(this).attr("href");
         $.post(url, function(data) {
-            data = $.parseJSON(data);
+            data = safeParseJSON(data);
             for (var html in data["html"])
                 $(data["html"][html][0]).html(data["html"][html][1]);
             if (data["message"]) {
@@ -295,7 +302,7 @@ $(function() {
             // url = lfs_export_category_state category id
             var url = $(this).attr("data")
             $.post(url, function(data) {
-                data = $.parseJSON(data);
+                data = safeParseJSON(data);
                 // Sets 1/2
                 $(data["html"][0]).html(data["html"][1]);
                 // Sets checking
@@ -315,7 +322,7 @@ $(function() {
         // Loads children of clicked category.
         if ($(this).hasClass("collapsed")) {
             $.post(url, function(data) {
-                data = $.parseJSON(data);
+                data = safeParseJSON(data);
                 for (var html in data["html"])
                     $(data["html"][html][0]).html(data["html"][html][1]);
             })
@@ -462,7 +469,7 @@ $(function() {
                 type: "POST",
                 data: {"categories": serialized},
                 success: function(data) {
-                    data = $.parseJSON(data);
+                    data = safeParseJSON(data);
                     $.jGrowl(data["message"])
                 }
            });
