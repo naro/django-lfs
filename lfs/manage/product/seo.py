@@ -46,6 +46,6 @@ def manage_seo(request, product_id, template_name="manage/product/seo.html"):
     if request.is_ajax():
         return HttpResponse(simplejson.dumps({
             "message": _(u"Seo data has been saved."),
-        }, cls=LazyEncoder))
+        }, cls=LazyEncoder), mimetype='application/json')
     else:
         return result

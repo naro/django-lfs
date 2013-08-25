@@ -146,7 +146,7 @@ def save_data_tab(request):
         "message": message,
     }, cls=LazyEncoder)
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")
@@ -169,7 +169,7 @@ def save_default_values_tab(request):
         "message": message
     }, cls=LazyEncoder)
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")
@@ -192,7 +192,7 @@ def save_seo_tab(request):
         "message": message,
     }, cls=LazyEncoder)
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")
@@ -218,4 +218,4 @@ def save_order_numbers_tab(request):
         "message": message,
     }, cls=LazyEncoder)
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')

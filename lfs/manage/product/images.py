@@ -40,7 +40,7 @@ def manage_images(request, product_id, as_string=False, template_name="manage/pr
             "message": _(u"Images has been added."),
         }, cls=LazyEncoder)
 
-        return HttpResponse(result)
+        return HttpResponse(result, mimetype='application/json')
 
 
 # Actions
@@ -66,7 +66,7 @@ def add_image(request, product_id):
     product_changed.send(product, request=request)
 
     result = simplejson.dumps({"name": file_content.name, "type": "image/jpeg", "size": "123456789"})
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")
@@ -122,7 +122,7 @@ def update_images(request, product_id):
         "message": message,
     }, cls=LazyEncoder)
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")
@@ -171,7 +171,7 @@ def move_image(request, id):
          "html": html,
     }, cls=LazyEncoder)
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")

@@ -52,6 +52,6 @@ def edit_seo(request, category_id, template_name="manage/category/seo.html"):
         return HttpResponse(simplejson.dumps({
             "seo": seo_html,
             "message": message,
-        }, cls=LazyEncoder))
+        }, cls=LazyEncoder), mimetype='application/json')
     else:
         return seo_html

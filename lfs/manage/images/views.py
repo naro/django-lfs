@@ -61,7 +61,7 @@ def add_images(request):
                 continue
 
     result = simplejson.dumps({"name": file_content.name, "type": "image/jpeg", "size": "123456789"})
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")
@@ -130,4 +130,4 @@ def imagebrowser(request, template_name="manage/images/filebrowser_images.html")
         "message": "msg",
     }, cls=LazyEncoder)
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')

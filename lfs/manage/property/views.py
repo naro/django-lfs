@@ -187,7 +187,7 @@ def save_step_range(request, property_id):
         "message": _(u"Step range has been saved."),
     }, cls=LazyEncoder)
 
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")
@@ -205,7 +205,7 @@ def save_step_type(request, property_id):
         "html": html,
         "message": _(u"Step type has been saved."),
     }, cls=LazyEncoder)
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")
@@ -236,7 +236,7 @@ def add_step(request, property_id):
         "html": html,
         "message": message,
     }, cls=LazyEncoder)
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")
@@ -356,7 +356,7 @@ def add_option(request, property_id):
         "html": html,
         "message": message
     }, cls=LazyEncoder)
-    return HttpResponse(result)
+    return HttpResponse(result, mimetype='application/json')
 
 
 @permission_required("core.manage_shop", login_url="/login/")
