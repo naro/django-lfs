@@ -4090,7 +4090,7 @@ msgstr "Hodnoty vlastností"
 msgid "Please go to the variants to assign property values."
 msgstr ""
 "Pokud chcete přiřadit hodnoty vlastností, přejděte prosím na záložku "
-"Kombinace"
+"Dostupné varianty"
 
 #: templates/manage/product/related_products_inline.html:89
 msgid "Add to related products"
