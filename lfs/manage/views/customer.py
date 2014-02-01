@@ -3,6 +3,7 @@ from datetime import datetime
 from datetime import timedelta
 
 # django imports
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import EmptyPage
@@ -113,8 +114,10 @@ def customer_inline(request, customer_id, template_name="manage/customer/custome
     query = Q()
     if customer.session:
         query |= Q(session=customer.session)
-    if customer.user:
+    try:
         query |= Q(user=customer.user)
+    except User.DoesNotExist:
+        pass
     orders = Order.objects.filter(query)
 
     try:
@@ -264,7 +267,7 @@ def set_ordering(request, ordering):
     elif ordering == "firstname":
         ordering = "addresses__firstname"
     elif ordering == "email":
-        ordering = "addresses__email"
+        ordering = "user__email"
 
     if ordering == request.session.get("customer-ordering"):
         if request.session.get("customer-ordering-order") == "":
