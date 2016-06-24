@@ -53,10 +53,12 @@ def login(request, template_name="lfs/customer/login.html"):
                 redirect_to = reverse("lfs_shop_view")
 
             from django.contrib.auth import login
+            from django.http import HttpResponseRedirect
             login(request, login_form.get_user())
 
-            return lfs.core.utils.set_message_cookie(
-                redirect_to, msg=_(u"You have been logged in."))
+            return HttpResponseRedirect(redirect_to)
+            # return lfs.core.utils.set_message_cookie(
+            #     redirect_to, msg=_(u"You have been logged in."))
 
     elif request.POST.get("action") == "register":
         register_form = RegisterForm(data=request.POST)
