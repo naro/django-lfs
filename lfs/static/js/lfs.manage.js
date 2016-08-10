@@ -561,6 +561,15 @@ $(function() {
 
         return false;
     });
+    $body.on('submit', '#imagebrowser-filter', function(){
+        $(this).ajaxSubmit({success: function(data) {
+                                         data = safeParseJSON(data);
+                                         $("#dialog").html(data["html"]);
+                                     }
+                           });
+
+        return false;
+    });
 
     $body.on('keypress', '.disable-enter-key', disable_enter_key);
 });
